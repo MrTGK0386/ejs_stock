@@ -18,12 +18,12 @@
                     <iconify-icon icon="mdi:account" alt="account" class="rounded-circle" width="32" height="32"></iconify-icon>
                 </a>
                 <ul class="dropdown-menu text-small shadow">
-                    <li><a class="dropdown-item" href="/profil">Profil : <%=username %> </a></li>
+                    <li><a class="dropdown-item" href="/profil">Profil : <%=email %> </a></li>
                     <% if (admin === 1) {%>
                         <%- include('adminHeaderComponent')-%>
                     <% } %>
                     <hr class="dropdown-divider">
-                    <li><a class="dropdown-item" href="/logout">Se déconnecter</a></li>
+                    <li><a class="dropdown-item" href="/auth/logout">Se déconnecter</a></li>
                 </ul>
             </div>
         </div>
