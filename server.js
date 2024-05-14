@@ -19,14 +19,13 @@ app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
 
-app.use('index', indexRouter)
+app.use('/', indexRouter)
 app.use('/auth', authRouter);
 
 const server = http.createServer(app);
 const io = new Server(server);
 
 var buttonValue = null;
-const username= "test";
 
 io.on('connection', function(socket) {
     console.log("user connected");

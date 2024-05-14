@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<%-include('base')-%>
+
+<body class="d-flex flex-column min-vh-100 text-center">
+<%# include('header')-%>
+
+<div class="form-signin m-auto">
+    <form method="post" action="/auth/signup">
+        <div class="position-relative">
+            <img src="style/images/logo.png" class="mb-4" width="236,4" height="197,8" alt="Logo"></img>
+        </div>
+        <h1 class="h3 mb-3 fw-normal">Ajouter un utilisateur</h1>
+        <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="email" name="email" placeholder="n.prenom@mfgs.fr" required autofocus>
+            <label for="email">Adresse email</label>
+        </div>
+        <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="password" name="password" placeholder="Your Password" required>
+            <label for="password">Mot de passe</label>
+        </div>
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="DSIO_status" name="DSIO_status" value="" >
+            <label class="form-check-label" for="DSIO_status">Membre du service informatique</label>
+        </div>
+        <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="ADMIN_status" name="ADMIN_status" value="" >
+            <label class="form-check-label" for="ADMIN_status">Administrateur du système</label>
+        </div>
+        <button class="btn btn-primary w-100 py-2 mb-3" type="submit">Créer le compte</button>
+    </form>
+</div>
+
+</body>
+
+<%-include('scripts')-%>
+</html>

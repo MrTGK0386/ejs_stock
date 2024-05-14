@@ -16,15 +16,24 @@ User.init({
     },
     email : {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
         unique: true,
     },
     salt : {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    dsio : {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
+    },
+    admin : {
+        type: DataTypes.BOOLEAN,
+        defaultValue: false,
     }
     },
     {
         sequelize,
             modelName: "User",
+        tableName: "mfgs_users",
 })

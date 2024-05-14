@@ -9,5 +9,9 @@ router.get('/', (req, res) => {
     }
 });
 
+router.get('/test', (req, res) => {
+    res.render('signup', {username: "test", admin: 1});
+})
+
 
 module.exports = router;
