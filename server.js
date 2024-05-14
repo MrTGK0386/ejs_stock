@@ -1,8 +1,10 @@
 const http = require('http');
 const express = require('express');
+const session = require('express-session');
 const { Server } = require('socket.io');
 const port = 34090;
 const sequelize = require("./database.js");
+const passport = require("passport");
 
 const app = express();
 
@@ -18,6 +20,9 @@ sequelize.sync().then(()=>{
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 app.use(express.urlencoded({ extended: true }));
+app.use(session({ secret: "SECRETKEY", resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session())
 
 app.use('/', indexRouter)
 app.use('/auth', authRouter);
