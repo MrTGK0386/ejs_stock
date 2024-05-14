@@ -2,7 +2,7 @@ const express = require('express');
 const crypto = require('crypto');
 const passport = require('passport');
 const localStrategy = require('passport-local');
-const User = require('../models/user');
+const User = require('../models/User');
 const router = express.Router();
 
 passport.use(new localStrategy(async function verify(email, password, done) {
@@ -47,18 +47,24 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/signup', (req, res) => {
+    console.log('Received signup request with data:', req.body);
     let salt = crypto.randomBytes(16);
-    crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha512', async function(err, hashedPassword){
-        if (err) {res.redirect('/auth/signup?failed=ash');}
+
+    crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function(err, hashedPassword){
+        if (err) {console.log('error while ashing the password'); res.redirect('/auth/signup?failed=ash');}
 
         try {
-            const user = await User.create({email: req.body.email, password: hashedPassword, salt:salt, dsio: req.body.DSIO_status, admin: req.body.ADMIN_status});
+            const DSIO_Status = req.body.DSIO_status === 'on';
+            const ADMIN_Status = req.body.ADMIN_status === 'on';
+            const user = await User.create({email: req.body.email, password: hashedPassword.toString("base64"), salt:salt.toString("base64"), dsio: DSIO_Status, admin: ADMIN_Status});
 
             req.login(user, function(err) {
                 if (err) {res.redirect('/auth/login?failed=login');}
                 res.redirect('/')
             })
         } catch (e) {
+            console.log('undefined error while creating the user',e)
+            console.log(salt.toString('base64'),hashedPassword.toString('base64'));
             res.redirect('/auth/signup?failed=notUnique');
         }
     })

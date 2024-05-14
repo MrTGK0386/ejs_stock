@@ -37,3 +37,5 @@ User.init({
             modelName: "User",
         tableName: "mfgs_users",
 })
+
+module.exports = User
