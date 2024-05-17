@@ -33,13 +33,13 @@ const io = new Server(server);
 var buttonValue = null;
 
 io.on('connection', function(socket) {
-    console.log("user connected");
+    console.log("New user got a socket connection");
     socket.on('addOne', function() {
         buttonValue++;
         io.emit('addOneResponse', buttonValue);
     })
     socket.on('disconnect', function() {
-        console.log("user disconnected");
+        console.log("A socket was disbanded");
     });
 });
 

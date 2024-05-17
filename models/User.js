@@ -11,7 +11,7 @@ User.init({
         autoIncrement: true,
     },
     password : {
-        type: DataTypes.STRING,
+        type: DataTypes.BLOB,
         allowNull: false,
     },
     email : {
@@ -20,7 +20,7 @@ User.init({
         unique: true,
     },
     salt : {
-        type: DataTypes.STRING,
+        type: DataTypes.BLOB,
         allowNull: false,
     },
     dsio : {
