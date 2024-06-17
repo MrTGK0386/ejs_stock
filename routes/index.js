@@ -17,7 +17,6 @@ router.get('/test', (req, res) => {
 
 router.get('/dashboard', (req, res) => {
     if (req.user) {
-        console.log("User is", req.user);
         res.render('index.ejs', {email: req.user.email, admin: req.user.admin, buttonValue: null});
     }  else {
         res.redirect('/auth/login');

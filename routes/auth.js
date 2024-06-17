@@ -1,4 +1,5 @@
 const express = require('express');
+const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
@@ -30,7 +31,7 @@ passport.use(new LocalStrategy(async function verify(username, password, done) {
 }));
 
 passport.serializeUser((user, done) => {
-    console.log('Je serialize cet utilisateur :',user);
+    //console.log('Je serialize cet utilisateur :',user);
     if (user && user.id_users) {
         done(null, user.id_users);
     } else {
@@ -39,7 +40,7 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    console.log('Je Deserialize cet ID :',id);
+    //console.log('Je Deserialize cet ID :',id);
     User.findByPk(id).then(user => {
         done(null, user);
     })
@@ -74,8 +75,20 @@ router.get('/signup', (req, res) => {
     const failed = req.query.failed;
     res.render('signup', {failed: failed});
 })
-router.post('/logout', (req, res) => {
-    res.render('logout');
+
+router.post('accountAsk',  (req, res) => {
+    //ajouter ici le code pour recevoir les données du formulaire et envoyer un mail à Laurent (dynamique, il faut envoyer à toutes les adresses mail qui sont admin)
+})
+router.get('/accountAsk', (req, res) => {
+    const failed = req.query.failed;
+    res.render('accountAsk', {failed: failed});
+})
+router.get('/logout', (req, res, next) => {
+    req.logout(function(err) {
+        if (err) { return next(err)}
+        console.log ('Logged out')
+        res.redirect('/');
+    })
 })
 
 
