@@ -9,14 +9,15 @@ passport.use(new LocalStrategy(async function verify(username, password, done) {
     try {
         const user = await User.findOne({where: { email: username}});
         if (!user) {
-            return done(null, true, { message: 'Email incorrect' });
+            console.log("utilisateur introuvable")
+            return done(null, false, { message: 'Email incorrect' });
         }
 
-        crypto.pbkdf2(password, user.salt, 310000, 32, 'sha512', async function(err, hashedPassword){
+        crypto.pbkdf2(password, user.salt, 310000, 32, 'sha256', async function(err, hashedPassword){
            if (err) { return done(err); }
 
            if (!crypto.timingSafeEqual(user.password, hashedPassword)) {
-               return done(null, true, { message: 'Mot de passe incorrect' });
+               return done(null, false, { message: 'Mot de passe incorrect' });
            }
 
            return done(null,user)
@@ -29,10 +30,17 @@ passport.use(new LocalStrategy(async function verify(username, password, done) {
 }));
 
 passport.serializeUser((user, done) => {
-    done(null, {id : user.id_users, email : user.email, admin : user.admin, dsio: user.dsio});
-})
-passport.deserializeUser((user, done) => {
-    User.findByPk(user.id).then(user => {
+    console.log('Je serialize cet utilisateur :',user);
+    if (user && user.id_users) {
+        done(null, user.id_users);
+    } else {
+        done(new Error('Utilisateur non valide pour la sérialisation'));
+    }
+});
+
+passport.deserializeUser((id, done) => {
+    console.log('Je Deserialize cet ID :',id);
+    User.findByPk(id).then(user => {
         done(null, user);
     })
 })
@@ -47,33 +55,6 @@ router.get('/login', (req, res) => {
     const failed = req.query.failed;
     res.render('login', {failed: failed});
 })
-
-/*
-ancienne route, crash après l'enregistrement d'un nouvel utilisateur
-router.post('/signup', (req, res) => {
-    let salt = crypto.randomBytes(16);
-
-    crypto.pbkdf2(req.body.password, salt, 310000, 32, 'sha256', async function(err, hashedPassword){
-        if (err) {console.log('error while ashing the password'); res.redirect('/auth/signup?failed=ash');}
-
-        try {
-            const DSIO_Status = req.body.DSIO_status === 'on';
-            const ADMIN_Status = req.body.ADMIN_status === 'on';
-            const user = await User.create({email: req.body.email, password: hashedPassword.toString("base64"), salt:salt.toString("base64"), dsio: DSIO_Status, admin: ADMIN_Status});
-
-            req.login(user, function(err) {
-                if (err) {
-                    console.log(err);
-                    res.redirect('/auth/login?failed=login');}
-                res.redirect('/')
-
-            })
-        } catch (e) {
-            console.log('undefined error while creating the user',e)
-            res.redirect('/auth/signup?failed=notUnique');
-        }
-    })
-}) */
 
 router.post('/signup', async (req, res) => {
     try {
