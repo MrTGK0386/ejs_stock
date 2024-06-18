@@ -4,7 +4,29 @@ const crypto = require('crypto');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('../models/User');
+const {underscoredIf} = require("sequelize/lib/utils");
 const router = express.Router();
+
+const transporter = nodemailer.createTransport({
+    host: 'smtp.office365.com',
+    port: 587,
+    secure: false,
+    auth: {
+        user: 'scan@mfgs.fr',
+        pass: '34Sc@n34!',
+    },
+    tls: {
+        cipher: 'SSLv3'
+    }
+});
+
+transporter.verify(function (error, success){
+    if (error) {
+        console.log(error);
+    } else {
+        console.log("Les SMTP est prêt pour envoyer des mails")
+    }
+});
 
 passport.use(new LocalStrategy(async function verify(username, password, done) {
     try {
@@ -76,9 +98,38 @@ router.get('/signup', (req, res) => {
     res.render('signup', {failed: failed});
 })
 
-router.post('accountAsk',  (req, res) => {
-    //ajouter ici le code pour recevoir les données du formulaire et envoyer un mail à Laurent (dynamique, il faut envoyer à toutes les adresses mail qui sont admin)
-})
+router.post('/accountAsk',  (req, res) => {
+    console.log("requête reçu", req.body);
+
+    let DSIO_status = req.body.DSIO_status;
+    let ADMIN_status = req.body.ADMIN_status;
+    const email = req.body.email;
+
+    if (DSIO_status == undefined){
+        DSIO_status = "off"
+    }
+    if (ADMIN_status == undefined) {
+        ADMIN_status = "off"
+    }
+
+    var askMail = {
+        from: "scan@mfgs.fr",
+        to: "hotline@mfgs.fr",
+        subject: "Demande de création de compte | Stock MFGS",
+        text: `Pourriez vous créer un compte dans le stock pour ${email} avec le status Admin : ${ADMIN_status} et le status membre de la DSI : ${DSIO_status}`,
+    }
+
+    transporter.sendMail(askMail, (error, info)=>{
+        if(error){
+            console.log(error);
+        } else {
+            console.log('Message envoyé : %s', info.messageId);
+        }
+    });
+
+    res.render('validAsk');
+});
+
 router.get('/accountAsk', (req, res) => {
     const failed = req.query.failed;
     res.render('accountAsk', {failed: failed});
