@@ -5,6 +5,10 @@
 <body class="d-flex flex-column min-vh-100 text-center">
 <%# include('header')-%>
 
+<% if (!fromMail) {%>
+    <script>document.location.href = '/'</script>
+    <%}%>
+
 <div class="form-signin m-auto">
     <form method="post" action="/auth/signup">
         <div class="position-relative">
@@ -15,20 +19,36 @@
                 <p class="mb-3 fw-normal text-danger">Erreur lors de la création du compte</p>
         <% } %>
         <div class="form-floating mb-3">
-            <input type="text" class="form-control" id="email" name="email" placeholder="n.prenom@mfgs.fr" required autofocus>
-            <label for="email">Adresse email</label>
+            <% if (email) {%>
+                <input type="text" class="form-control" id="email" name="email" placeholder="n.prenom@mfgs.fr" value="<%= email%>" required autofocus>
+                <label for="email">Adresse email</label>
+            <% } else {%>
+                <input type="text" class="form-control" id="email" name="email" placeholder="n.prenom@mfgs.fr" required autofocus>
+                <label for="email">Adresse email</label>
+            <%}%>
         </div>
         <div class="form-floating mb-3">
             <input type="password" class="form-control" id="password" name="password" placeholder="Your Password" required>
             <label for="password">Mot de passe</label>
         </div>
         <div class="form-check mb-3">
-            <input type="checkbox" class="form-check-input" id="DSIO_status" name="DSIO_status">
-            <label class="form-check-label" for="DSIO_status">Membre du service informatique</label>
+            <% if (DSIO_status == "Oui") {%>
+                <input type="checkbox" class="form-check-input" id="DSIO_status" name="DSIO_status" checked>
+                <label class="form-check-label" for="DSIO_status">Membre du service informatique</label>
+            <%} else {%>
+                <input type="checkbox" class="form-check-input" id="DSIO_status" name="DSIO_status">
+                <label class="form-check-label" for="DSIO_status">Membre du service informatique</label>
+            <%}%>
         </div>
         <div class="form-check mb-3">
-            <input type="checkbox" class="form-check-input" id="ADMIN_status" name="ADMIN_status">
-            <label class="form-check-label" for="ADMIN_status">Administrateur du système</label>
+            <%if (ADMIN_status == "Oui") {%>
+                <input type="checkbox" class="form-check-input" id="ADMIN_status" name="ADMIN_status" checked>
+                <label class="form-check-label" for="ADMIN_status">Administrateur du système</label>
+            <%} else {%>
+                <input type="checkbox" class="form-check-input" id="ADMIN_status" name="ADMIN_status">
+                <label class="form-check-label" for="ADMIN_status">Administrateur du système</label>
+            <%}%>
+
         </div>
         <button class="btn btn-primary w-100 py-2 mb-3" type="submit">Créer le compte</button>
     </form>
