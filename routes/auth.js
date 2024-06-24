@@ -99,6 +99,7 @@ router.post('/signup', async (req, res) => { //Application du formulaire de cré
     }
 });
 router.get('/signup', (req, res) => {
+    //Ces variables permettent le remplissage automatique et la vérification d'accés sur la page Signup
     const failed = req.query.failed;
     const fromMail = req.query.fromMail;
     const DSIO_status = req.query.DSIO_status;
