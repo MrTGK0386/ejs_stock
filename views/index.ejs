@@ -6,6 +6,71 @@
 <%- include('header') -%>
 <%- include('button')-%>
 
+<div class="d-flex text-center mt-4">
+
+    <aside id="aside" class="bd-sidebar" data-bs-scroll="true">
+        <div id="nouvelleRef" class="rounded shadow d-flex flex-column p-3 position-sticky">
+            <h2>Créer une nouvelle référence</h2>
+            <button class="btn btn-primary my-3" onclick="location.href='ajoutStock.php'">Ajouter une référence</button>
+        </div>
+    </aside>
+
+    <table class="table table-sm">
+        <thead>
+        <tr>
+            <th>Ligne</th>
+            <th>Nom</th>
+            <th>Appellation</th>
+            <th class="min_content">Prix</th>
+            <th class="min_content">Stock</th>
+            <th class="min_content">Stock min</th>
+            <th></th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <p>num</p>
+            </td>
+            <td>
+                <form method="post" action="/test">
+                    <input type="hidden" name="id_stock" value="id stock">
+                    <input type="hidden" name="action" value="update">
+                    <input type="text" name="nom_produit" class="form-control reduce_padding small_text" value="nom produit">
+            </td>
+            <td>
+                <input type="text" name="appellation" class="form-control reduce_padding small_text" value="appellation">
+            </td>
+            <td class="min_content">
+                <input type="text" name="prix" class="form-control reduce_padding small_text" value="prix">
+            </td>
+            <td class="min_content">
+                <input type="text" name="stock" class="form-control reduce_padding small_text" value="stock">
+            </td>
+            <td class="min_content">
+                <input type="text" name="stock_min" class="form-control reduce_padding small_text" value="stock-min">
+            </td>
+            <td>
+                <input type="submit" class="btn btn-success reduce_padding small_text" value="Changer">
+                </form>
+            </td>
+            <td>
+                <form method="post" action="/test">
+                    <input type="hidden" name="id_stock" value="id stock">
+                    <input type="hidden" name="action" value="delete">
+                    <input type="submit" class="btn btn-danger reduce_padding small_text" value="Supprimer" onclick="return confirm('Êtes vous sûr de vouloir supprimer cette référence ?')">
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <%= row%>
+</div>
+
+
 </body>
 <%- include('scripts')-%>
 </html>

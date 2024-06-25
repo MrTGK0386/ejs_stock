@@ -13,7 +13,9 @@ https://nodemailer.com/about/ <br>
 https://dev.to/victrexx2002/introduction-to-ejs-a-guide-to-building-dynamic-web-applications-2737 <br>
 
 ## <u>Screen interfaces :</u>
-
+![img.png](img.png)
+![img_1.png](img_1.png)
+![img_2.png](img_2.png)
 ## <u>Base de donnée :</u>
 
 https://dbdiagram.io/d/diagram-db-MFGS-64cbc0bb02bd1c4a5e32bd60

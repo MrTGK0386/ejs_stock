@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const Stock = require('../models/Stock');
+const User = require('../models/User');
 
 //
 
@@ -17,7 +19,8 @@ router.get('/test', (req, res) => {
 
 router.get('/dashboard', (req, res) => {
     if (req.user) {
-        res.render('index.ejs', {email: req.user.email, admin: req.user.admin, buttonValue: null});
+        let row = Stock.findAll()
+        res.render('index.ejs', {email: req.user.email, admin: req.user.admin, buttonValue: null, row: row });
     }  else {
         res.redirect('/auth/login');
     }
