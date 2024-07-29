@@ -28,48 +28,46 @@
             <th></th>
         </tr>
         </thead>
-        <tbody>
-        <tr>
-            <td>
-                <p>num</p>
-            </td>
-            <td>
-                <form method="post" action="/test">
-                    <input type="hidden" name="id_stock" value="id stock">
-                    <input type="hidden" name="action" value="update">
-                    <input type="text" name="nom_produit" class="form-control reduce_padding small_text" value="nom produit">
-            </td>
-            <td>
-                <input type="text" name="appellation" class="form-control reduce_padding small_text" value="appellation">
-            </td>
-            <td class="min_content">
-                <input type="text" name="prix" class="form-control reduce_padding small_text" value="prix">
-            </td>
-            <td class="min_content">
-                <input type="text" name="stock" class="form-control reduce_padding small_text" value="stock">
-            </td>
-            <td class="min_content">
-                <input type="text" name="stock_min" class="form-control reduce_padding small_text" value="stock-min">
-            </td>
-            <td>
-                <input type="submit" class="btn btn-success reduce_padding small_text" value="Changer">
-                </form>
-            </td>
-            <td>
-                <form method="post" action="/test">
-                    <input type="hidden" name="id_stock" value="id stock">
-                    <input type="hidden" name="action" value="delete">
-                    <input type="submit" class="btn btn-danger reduce_padding small_text" value="Supprimer" onclick="return confirm('Êtes vous sûr de vouloir supprimer cette référence ?')">
-                </form>
-            </td>
-        </tr>
-        </tbody>
+        <% rows.forEach((row) => {%>
+            <tbody>
+            <tr>
+                <td>
+                    <p><%=row.id_stock%></p>
+                </td>
+                <td>
+                    <form method="post" action="/test">
+                        <input type="hidden" name="id_stock" value="id_stock">
+                        <input type="hidden" name="action" value="update">
+                        <input type="text" name="nom_produit" class="form-control reduce_padding small_text" value="<%=row.nom_produit%>">
+                </td>
+                <td>
+                    <input type="text" name="appellation" class="form-control reduce_padding small_text" value="<%=row.appellation%>">
+                </td>
+                <td class="min_content">
+                    <input type="text" name="prix" class="form-control reduce_padding small_text" value="<%=row.prix%>">
+                </td>
+                <td class="min_content">
+                    <input type="text" name="stock" class="form-control reduce_padding small_text" value="<%=row.stock%>">
+                </td>
+                <td class="min_content">
+                    <input type="text" name="stock_min" class="form-control reduce_padding small_text" value="<%=row.stock_min%>">
+                </td>
+                <td>
+                    <input type="submit" class="btn btn-success reduce_padding small_text" value="Changer">
+                    </form>
+                </td>
+                <td>
+                    <form method="post" action="/test">
+                        <input type="hidden" name="id_stock" value="id stock">
+                        <input type="hidden" name="action" value="delete">
+                        <input type="submit" class="btn btn-danger reduce_padding small_text" value="Supprimer" onclick="return confirm('Êtes vous sûr de vouloir supprimer cette référence ?')">
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        <% });%>
     </table>
 </div>
-<div>
-    <%= row%>
-</div>
-
 
 </body>
 <%- include('scripts')-%>

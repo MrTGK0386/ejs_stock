@@ -2,10 +2,12 @@ const express = require('express');
 const router = express.Router();
 const Stock = require('../models/Stock');
 const User = require('../models/User');
+const {where} = require("sequelize");
 
 //
 
 router.get('/', (req, res) => {
+    // Vérification d'authentification
     if (req.user) {
         res.render('index', {email: req.user.email, admin: req.user.admin , buttonValue: null});
     } else {
@@ -13,14 +15,12 @@ router.get('/', (req, res) => {
     }
 });
 
-router.get('/test', (req, res) => {
-    res.render('signup', {email: "test", admin: 1});
-})
-
-router.get('/dashboard', (req, res) => {
+router.get('/dashboard', async(req, res) => {
     if (req.user) {
-        let row = Stock.findAll()
-        res.render('index.ejs', {email: req.user.email, admin: req.user.admin, buttonValue: null, row: row });
+        //Récupération de la table stock_mfgs
+        const rows = await Stock.findAll()
+        //console.log(rows[1].nom_produit); //Pour atteindre les propriété des produits il suffit de demander la ligne à laquelle il sont puis afficher le paramètre qui nous interesse
+        res.render('index.ejs', {email: req.user.email, admin: req.user.admin, buttonValue: null, rows: rows});
     }  else {
         res.redirect('/auth/login');
     }
