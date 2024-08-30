@@ -4,7 +4,7 @@ Stock MFGS
 Ce projet consite en la création d'une application web 
 pour la gestion du stock de la mutualité française
 
-## <u>liens utiles :</u>
+## <u>Liens utiles :</u>
 
 https://www.youtube.com/watch?v=jBKqA8FFpIM <br>
 https://socket.io/docs/v4/tutorial/api-overview <br>
