@@ -1,9 +1,9 @@
 const port = 34090; // port de l'application
 
-const http = require('http'); //librairie de protocole http et de création de serveur web
-const express = require('express'); //librairie d'appli web
-const session = require('express-session'); // extension d'express pour la gestion de session (comme en php)
-const { Server } = require('socket.io'); // librairie de gestion de socket
+const http = require('http');
+const express = require('express');
+const session = require('express-session');
+const { Server } = require('socket.io');
 const sequelize = require("./database.js"); // Gestionnaire et intégrateur de base de donnée
 const passport = require("passport"); // Gestionnaire d'authentification
 
@@ -13,7 +13,7 @@ const indexRouter = require("./routes/index"); // Paramétrage du routeur par d�
 const authRouter = require("./routes/auth"); // Paramétrage du routeur d'authentification
 
 sequelize.sync().then(()=>{ // Synchronisation à la base de donnée
-    console.log("database up !.");
+    console.log("database up !");
 });
 
 
@@ -27,7 +27,7 @@ app.use(passport.session()) //Génère une session Express avec l'authentificati
 
 app.use('/', indexRouter); app.use('/auth', authRouter); // Indique les routeur à utilisé en fonction de l'URL de la requête
 
-const server = http.createServer(app); //Génère un serveur web qui héberge une appli express
+const server = http.createServer(app);
 const io = new Server(server); //créer un socket pour le serveur
 
 var buttonValue = null; // Valeur d'un bouton pour faire des test sur les socket
