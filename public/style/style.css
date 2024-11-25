@@ -1,0 +1,96 @@
+/* Mobile-first : ces styles s'appliquent d'abord aux mobiles */
+
+:root {
+    --login-primary-color: #0d6efd;
+    --login-text-color: #333;
+    --login-border-radius: 8px;
+}
+
+/* Card de login */
+.login-card {
+    border: none;
+    border-radius: 12px;
+    margin: 0 auto;
+}
+
+/* Logo */
+.login-logo {
+    max-width: 160px;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Titre */
+.login-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--login-text-color);
+    margin-bottom: 1.5rem;
+}
+
+/* Message d'erreur */
+.login-error {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+/* Groupe d'input */
+.login-input-group {
+    margin-bottom: 1.25rem;
+}
+
+/* Inputs */
+.login-input {
+    font-size: 1rem;
+    padding: 0.75rem;
+    border-radius: var(--login-border-radius);
+    height: auto;
+}
+
+.login-input:focus {
+    box-shadow: none;
+    border-color: var(--login-primary-color);
+}
+
+/* Labels flottants */
+.login-input-group label {
+    font-size: 0.9rem;
+    padding: 0.75rem;
+}
+
+/* Boutons */
+.login-button,
+.login-button-secondary {
+    padding: 0.8rem;
+    font-size: 1rem;
+    border-radius: var(--login-border-radius);
+    font-weight: 500;
+}
+
+/* Pour les tablettes et plus */
+@media (min-width: 768px) {
+    .login-card {
+        max-width: 480px;
+    }
+
+    .login-logo {
+        max-width: 200px;
+    }
+
+    .login-title {
+        font-size: 1.8rem;
+    }
+
+    .login-input,
+    .login-button,
+    .login-button-secondary {
+        font-size: 1.1rem;
+    }
+}
+
+/* Pour les grands écrans */
+@media (min-width: 992px) {
+    .login-card {
+        max-width: 520px;
+    }
+}
