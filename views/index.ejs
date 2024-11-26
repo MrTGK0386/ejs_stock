@@ -3,72 +3,46 @@
 <%- include('base')-%>
 
 <body>
-<%- include('header') -%>
-<%- include('button')-%>
+<div class="container d-flex flex-column align-items-center justify-content-center vh-100">
+    <div class="w-100 text-center">
+        <!-- Bouton Entrer -->
+        <button class="btn menu-button bg-primary text-white w-100 my-2 d-flex flex-column align-items-center justify-content-center">
+            <img src="../style/images/Entrer.png" alt="Entrer" class="big-menu-icon my-2">
+            <span>Entrer</span>
+        </button>
 
-<div class="d-flex text-center mt-4">
-
-    <aside id="aside" class="bd-sidebar" data-bs-scroll="true">
-        <div id="nouvelleRef" class="rounded shadow d-flex flex-column p-3 position-sticky">
-            <h2>Créer une nouvelle référence</h2>
-            <button class="btn btn-primary my-3" onclick="location.href='ajoutStock.php'">Ajouter une référence</button>
+        <!-- Boutons Admin et Stock -->
+        <div class="d-flex justify-content-between w-100 my-2">
+            <button class="btn menu-button bg-danger text-white w-50 me-2 d-flex flex-column align-items-center justify-content-center">
+                <img src="../style/images/Admin.png" alt="Admin" class="menu-icon my-2">
+                <span>Admin</span>
+            </button>
+            <button class="btn menu-button bg-warning text-dark w-50 ms-2 d-flex flex-column align-items-center justify-content-center">
+                <img src="../style/images/Stock.png" alt="Stock" class="menu-icon my-2">
+                <span>Stock</span>
+            </button>
         </div>
-    </aside>
 
-    <table class="table table-sm">
-        <thead>
-        <tr>
-            <th>Ligne</th>
-            <th>Nom</th>
-            <th>Appellation</th>
-            <th class="min_content">Prix</th>
-            <th class="min_content">Stock</th>
-            <th class="min_content">Stock min</th>
-            <th></th>
-            <th></th>
-        </tr>
-        </thead>
-        <% rows.forEach((row) => {%>
-            <tbody>
-            <tr>
-                <td>
-                    <p><%=row.id_stock%></p>
-                </td>
-                <td>
-                    <form method="post" action="/test">
-                        <input type="hidden" name="id_stock" value="id_stock">
-                        <input type="hidden" name="action" value="update">
-                        <input type="text" name="nom_produit" class="form-control reduce_padding small_text" value="<%=row.nom_produit%>">
-                </td>
-                <td>
-                    <input type="text" name="appellation" class="form-control reduce_padding small_text" value="<%=row.appellation%>">
-                </td>
-                <td class="min_content">
-                    <input type="text" name="prix" class="form-control reduce_padding small_text" value="<%=row.prix%>">
-                </td>
-                <td class="min_content">
-                    <input type="text" name="stock" class="form-control reduce_padding small_text" value="<%=row.stock%>">
-                </td>
-                <td class="min_content">
-                    <input type="text" name="stock_min" class="form-control reduce_padding small_text" value="<%=row.stock_min%>">
-                </td>
-                <td>
-                    <input type="submit" class="btn btn-success reduce_padding small_text" value="Changer">
-                    </form>
-                </td>
-                <td>
-                    <form method="post" action="/test">
-                        <input type="hidden" name="id_stock" value="id stock">
-                        <input type="hidden" name="action" value="delete">
-                        <input type="submit" class="btn btn-danger reduce_padding small_text" value="Supprimer" onclick="return confirm('Êtes vous sûr de vouloir supprimer cette référence ?')">
-                    </form>
-                </td>
-            </tr>
-            </tbody>
-        <% });%>
-    </table>
+        <!-- Bouton Sortir -->
+        <button class="btn menu-button bg-success text-white w-100 my-2 d-flex flex-column align-items-center justify-content-center">
+            <img src="../style/images/Sortir.png" alt="Sortir" class="big-menu-icon my-2">
+            <span>Sortir</span>
+        </button>
+
+        <!-- Bouton Scanner -->
+        <button class="btn menu-button bg-secondary text-white w-100 my-2 d-flex flex-column align-items-center justify-content-center">
+            <img src="../style/images/Scanner.png" alt="Scanner" class="menu-icon my-2">
+            <span>Scanner</span>
+        </button>
+    </div>
+
+    <!-- Bouton Profil en bas -->
+    <div class="fixed-bottom d-flex justify-content-center py-3">
+        <button class="btn btn-primary rounded-circle d-flex align-items-center justify-content-center profile-button">
+            <img src="../style/images/User.png" alt="User" class="menu-icon">
+        </button>
+    </div>
 </div>
-
 </body>
 <%- include('scripts')-%>
 </html>

@@ -6,12 +6,40 @@
      --login-border-radius: 8px;
  }
 
+body {
+    background-color: #f8f9fa; /* Fond doux et clair */
+}
+
+.menu-button {
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: var(--login-border-radius);
+
+}
+
+.menu-icon {
+    height: 30px; /* Taille cohérente pour les icônes */
+    width: 30px;
+}
+
+.big-menu-icon {
+    height: 40px;
+    width: 120px;
+}
+
+.profile-button {
+    height: 60px;
+    width: 60px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
 /* Styles généraux */
 .card {
     border: none;
     border-radius: var(--login-border-radius);
     margin: 0 auto;
 }
+
 .logo {
     max-width: 160px;
     margin: 0 auto;
@@ -137,6 +165,10 @@
     .login-checkbox-group {
         font-size: 1rem;
     }
+    .menu-button{
+        font-size: 1.5rem;
+    }
+
 }
 
 /* Grands écrans */
@@ -146,4 +178,8 @@
     .login-card {
         max-width: 520px;
     }
+    .container{
+        max-width: 500px;
+    }
+
 }
