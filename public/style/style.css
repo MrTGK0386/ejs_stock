@@ -1,95 +1,148 @@
 /* Mobile-first : ces styles s'appliquent d'abord aux mobiles */
 
 :root {
-    --login-primary-color: #0d6efd;
-    --login-text-color: #333;
-    --login-border-radius: 8px;
-}
+     --login-primary-color: #0d6efd;
+     --login-text-color: #333;
+     --login-border-radius: 8px;
+ }
 
-/* Card de login */
-.login-card {
+/* Styles généraux */
+.card {
     border: none;
-    border-radius: 12px;
+    border-radius: var(--login-border-radius);
     margin: 0 auto;
 }
-
-/* Logo */
-.login-logo {
+.logo {
     max-width: 160px;
     margin: 0 auto;
     display: block;
 }
-
-/* Titre */
-.login-title {
+.title {
     font-size: 1.5rem;
     font-weight: 500;
     color: var(--login-text-color);
     margin-bottom: 1.5rem;
 }
-
-/* Message d'erreur */
-.login-error {
+.error {
     font-size: 0.9rem;
     font-weight: 500;
 }
-
-/* Groupe d'input */
-.login-input-group {
+.input-group {
     margin-bottom: 1.25rem;
 }
-
-/* Inputs */
-.login-input {
+.input {
     font-size: 1rem;
     padding: 0.75rem;
     border-radius: var(--login-border-radius);
     height: auto;
 }
-
-.login-input:focus {
+.input:focus {
     box-shadow: none;
     border-color: var(--login-primary-color);
 }
-
-/* Labels flottants */
-.login-input-group label {
+.checkbox-group {
+    text-align: left;
     font-size: 0.9rem;
-    padding: 0.75rem;
 }
-
-/* Boutons */
-.login-button,
-.login-button-secondary {
+.buttons {
+    margin-top: 1.5rem;
+}
+.button {
     padding: 0.8rem;
     font-size: 1rem;
     border-radius: var(--login-border-radius);
     font-weight: 500;
 }
 
-/* Pour les tablettes et plus */
-@media (min-width: 768px) {
-    .login-card {
-        max-width: 480px;
-    }
+/* Page de connexion */
+.login-card {
+    @extend .card;
+}
+.login-logo {
+    @extend .logo;
+}
+.login-title {
+    @extend .title;
+}
+.login-error {
+    @extend .error;
+}
+.login-input-group {
+    @extend .input-group;
+}
+.login-input {
+    @extend .input;
+}
+.login-checkbox-group {
+    @extend .checkbox-group;
+}
+.login-buttons {
+    @extend .buttons;
+}
+.login-button {
+    @extend .button;
+}
 
+/* Page de création de compte */
+.account-creation-card {
+    @extend .card;
+}
+.account-creation-logo {
+    @extend .logo;
+}
+.account-creation-title {
+    @extend .title;
+}
+.account-creation-error {
+    @extend .error;
+}
+.account-creation-input-group {
+    @extend .input-group;
+}
+.account-creation-input {
+    @extend .input;
+}
+.account-creation-checkbox-group {
+    @extend .checkbox-group;
+}
+.account-creation-buttons {
+    @extend .buttons;
+}
+.account-creation-button {
+    @extend .button;
+}
+
+/* Tablettes et plus */
+@media (min-width: 768px) {
+    .logo,
+    .account-creation-logo,
     .login-logo {
         max-width: 200px;
     }
-
+    .title,
+    .account-creation-title,
     .login-title {
         font-size: 1.8rem;
     }
-
+    .input,
+    .account-creation-input,
     .login-input,
-    .login-button,
-    .login-button-secondary {
+    .button,
+    .account-creation-button,
+    .login-button {
         font-size: 1.1rem;
+    }
+    .checkbox-group,
+    .account-creation-checkbox-group,
+    .login-checkbox-group {
+        font-size: 1rem;
     }
 }
 
-/* Pour les grands écrans */
+/* Grands écrans */
 @media (min-width: 992px) {
+    .card,
+    .account-creation-card,
     .login-card {
         max-width: 520px;
     }
