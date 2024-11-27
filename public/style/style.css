@@ -18,8 +18,8 @@ body {
 }
 
 .menu-icon {
-    height: 30px; /* Taille cohérente pour les icônes */
-    width: 30px;
+    height: 40px; /* Taille cohérente pour les icônes */
+    width: 40px;
 }
 
 .big-menu-icon {
@@ -38,6 +38,31 @@ body {
     border: none;
     border-radius: var(--login-border-radius);
     margin: 0 auto;
+}
+
+.access-denied-card {
+    text-align: center;
+    padding: 2rem;
+    border: none;
+    border-radius: var(--login-border-radius);
+}
+
+.access-denied-icon {
+    font-size: 3rem;
+    color: var(--login-primary-color);
+    margin-bottom: 1rem;
+}
+
+.access-denied-text {
+    color: #666;
+    font-size: 1rem;
+}
+
+.access-denied-title {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--login-text-color);
+    margin-bottom: 1rem;
 }
 
 .logo {
@@ -168,6 +193,12 @@ body {
     .menu-button{
         font-size: 1.5rem;
     }
+    .access-denied-icon {
+        font-size: 4rem;
+    }
+    .access-denied-title {
+        font-size: 2rem;
+    }
 
 }
 
@@ -180,6 +211,10 @@ body {
     }
     .container{
         max-width: 500px;
+    }
+    .access-denied-card {
+        max-width: 500px;
+        margin: 0 auto;
     }
 
 }

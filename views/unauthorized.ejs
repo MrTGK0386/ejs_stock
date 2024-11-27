@@ -1,0 +1,18 @@
+<html>
+<%-include('base')-%>
+<script>setTimeout(()=> {document.location.href = '/';}, 5000);</script>
+
+<body>
+<div class="container d-flex align-items-center justify-content-center vh-100">
+    <div class="card access-denied-card text-center p-4">
+        <div class="access-denied-icon">
+            🚫
+        </div>
+        <h1 class="access-denied-title">Accès Refusé</h1>
+        <p class="access-denied-text">Désolé, vous n'avez pas la permission d'accéder à cette page.</p>
+    </div>
+</div>
+</body>
+
+<%- include('scripts')-%>
+</html>
