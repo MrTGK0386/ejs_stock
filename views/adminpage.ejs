@@ -8,48 +8,68 @@
     <div class="row gy-3 scrollable-container">
         <div class="col-12">
             <!--Carte d'explication-->
-            <div class="card d-flex flex-column align-items-around justify-content-around p-3">
-               <!-- Section Haut : Email et rôle -->
-                <div class="d-flex flex-row justify-content-around p-1">
-                    <p>Email</p>
-                    <p>Permission</p>
+            <div class="card d-flex flex-column justify-content-center align-items-center p-3">
+                <div class="row w-100">
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                        <p class="m-0">Email</p>
+                    </div>
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                        <p class="m-0">Permission</p>
+                    </div>
                 </div>
-                <!-- Boutons d'action -->
-                <div class="d-flex flex-row justify-content-around">
-                    <p>Edition</p>
-                    <p>Mot de passe</p>
+                <div class="row w-100 mt-3">
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                        <p class="m-0">Edition</p>
+                    </div>
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                        <p class="m-0">Mot de passe</p>
+                    </div>
                 </div>
             </div>
             <% rows.forEach((user) => { %>
-                <div class="card d-flex flex-column align-items-around justify-content-around p-3 my-1">
+                <div class="card d-flex flex-column align-items-center justify-content-center p-3 my-1">
                     <!-- Section Haut : Email et rôle -->
-                    <div class="d-flex flex-row justify-content-around p-1">
-                        <p><%= user.email%></p>
-                        <% if (user.admin) { %>
-                            <p>Administrateur</p>
-                        <% } else if (user.dsio) { %>
-                            <p>DSIO</p>
-                        <% } else { %>
-                            <p>Utilisateur</p>
-                        <% } %>
+                    <div class="row w-100">
+                        <div class="col-6 d-flex justify-content-center align-items-center">
+                            <p class="m-0"><%= user.email%></p>
+                        </div>
+                        <div class="col-6 d-flex justify-content-center align-items-center">
+                            <% if (user.admin) { %>
+                                <p class="m-0">Administrateur</p>
+                            <% } else if (user.dsio) { %>
+                                <p class="m-0">DSIO</p>
+                            <% } else { %>
+                                <p class="m-0">Utilisateur</p>
+                            <% } %>
+                        </div>
                     </div>
                     <!-- Boutons d'action -->
-                    <div class="d-flex flex-row justify-content-around">
-                        <button class="btn btn-danger btn-sm">Supprimer</button>
-                        <button class="btn btn-outline-danger btn-sm">Réinitialiser</button>
+                    <div class="row w-100 mt-3">
+                        <div class="col-6 d-flex justify-content-center">
+                            <button class="btn btn-danger btn-sm">Supprimer</button>
+                        </div>
+                        <div class="col-6 d-flex justify-content-center">
+                            <button class="btn btn-outline-danger btn-sm">Réinitialiser</button>
+                        </div>
                     </div>
                 </div>
             <% }); %>
-            <div class="card d-flex flex-column align-items-around justify-content-around p-3">
-                <!-- Section Haut : Email et rôle -->
-                <div class="d-flex flex-row justify-content-around p-1">
-                    <p>p.nom@mfgs.fr</p>
-                    <p>Administrateur</p>
+            <div class="card d-flex flex-column justify-content-center align-items-center p-3">
+                <div class="row w-100">
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                        <p class="m-0">p.nom@mfgs.fr</p>
+                    </div>
+                    <div class="col-6 d-flex justify-content-center align-items-center">
+                        <p class="m-0">Administrateur</p>
+                    </div>
                 </div>
-                <!-- Boutons d'action -->
-                <div class="d-flex flex-row justify-content-around">
-                    <button class="btn btn-success btn-sm">Créer</button>
-                    <button class="btn btn-outline-danger btn-sm" disabled>Réinitialiser</button>
+                <div class="row w-100 mt-3">
+                    <div class="col-6 d-flex justify-content-center">
+                        <button class="btn btn-success btn-sm">Créer</button>
+                    </div>
+                    <div class="col-6 d-flex justify-content-center">
+                        <button class="btn btn-outline-danger btn-sm" disabled>Réinitialiser</button>
+                    </div>
                 </div>
             </div>
         </div>
