@@ -19,8 +19,9 @@ router.get('/dashboard', async(req, res) => {
     if (req.user) {
         //Récupération de la table stock_mfgs
         const rows = await Stock.findAll()
+        const pagetitle = "Gestionnaire de stock"
         //console.log(rows[1].nom_produit); //Pour atteindre les propriété des produits il suffit de demander la ligne à laquelle il sont puis afficher le paramètre qui nous interesse
-        res.render('index.ejs', {email: req.user.email, admin: req.user.admin, buttonValue: null, rows: rows});
+        res.render('index.ejs', {email: req.user.email, admin: req.user.admin, buttonValue: null, rows: rows, pagetitle: pagetitle});
     }  else {
         res.redirect('/auth/login');
     }
@@ -37,6 +38,42 @@ router.get('/dashboard/admin', async (req, res) => {
         else {
             res.redirect('/auth/unauthorized');
         }
+    } else {
+        res.redirect('/auth/login');
+    }
+})
+
+router.get('/dashboard/stock', async (req, res) => {
+    if (req.user) {
+        const pagetitle = "Visualisation des stock";
+        res.render('stock',{pagetitle: pagetitle})
+    } else {
+        res.redirect('/auth/login');
+    }
+})
+
+router.get('/dashboard/sortie', async (req, res) => {
+    if (req.user) {
+        const pagetitle = "Sortir du stock";
+        res.render('sortie',{pagetitle: pagetitle})
+    } else {
+        res.redirect('/auth/login');
+    }
+})
+
+router.get('/dashboard/entree', async (req, res) => {
+    if (req.user) {
+        const pagetitle = "Entrer dans le stock";
+        res.render('entree',{pagetitle: pagetitle})
+    } else {
+        res.redirect('/auth/login');
+    }
+})
+
+router.get('/dashboard/scanning', async (req, res) => {
+    if (req.user) {
+        const pagetitle = "Scanner";
+        res.render('scanning',{pagetitle: pagetitle});
     } else {
         res.redirect('/auth/login');
     }
