@@ -10,11 +10,11 @@ body {
     background-color: #f8f9fa; /* Fond doux et clair */
 }
 
-.menu-button {
+.header-button {
     font-size: 1.2rem;
     font-weight: bold;
     border-radius: var(--login-border-radius);
-
+    border:none;
 }
 
 .menu-icon {
