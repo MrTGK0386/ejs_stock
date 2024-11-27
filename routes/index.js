@@ -27,5 +27,19 @@ router.get('/dashboard', async(req, res) => {
 
 })
 
+router.get('/dashboard/admin', async (req, res) => {
+    if (req.user) {
+        const rows = await User.findAll()
+        if (req.user.admin) {
+            res.render('adminpage.ejs', {email: req.user.id, admin: req.user.admin});
+        }
+        else {
+            res.redirect('/auth/unauthorized');
+        }
+    } else {
+        res.redirect('/auth/login');
+    }
+})
+
 
 module.exports = router;

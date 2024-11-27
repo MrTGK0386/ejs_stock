@@ -193,5 +193,9 @@ router.get('/logout', (req, res, next) => {
     })
 })
 
+router.get('/unauthorized', (req, res) => {
+    res.render('unauthorized');
+})
+
 
 module.exports = router;
