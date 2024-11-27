@@ -3,8 +3,56 @@
 <%-include('base')-%>
 
 <body>
-<div class="container d-flex flex-column align-items-center vh-100">
-    <p>Admin Page test</p>
+<div class="container-fluid py-3">
+    <div class="row gy-3 scrollable-container">
+        <div class="col-12">
+            <!--Carte d'explication-->
+            <div class="card d-flex flex-column align-items-around justify-content-around p-3">
+               <!-- Section Haut : Email et rôle -->
+                <div class="d-flex flex-row justify-content-around p-1">
+                    <p>Email</p>
+                    <p>Permission</p>
+                </div>
+                <!-- Boutons d'action -->
+                <div class="d-flex flex-row justify-content-around">
+                    <p>Edition</p>
+                    <p>Mot de passe</p>
+                </div>
+            </div>
+            <% rows.forEach((user) => { %>
+                <div class="card d-flex flex-column align-items-around justify-content-around p-3 my-1">
+                    <!-- Section Haut : Email et rôle -->
+                    <div class="d-flex flex-row justify-content-around p-1">
+                        <p><%= user.email%></p>
+                        <% if (user.admin) { %>
+                            <p>Administrateur</p>
+                        <% } else if (user.dsio) { %>
+                            <p>DSIO</p>
+                        <% } else { %>
+                            <p>Utilisateur</p>
+                        <% } %>
+                    </div>
+                    <!-- Boutons d'action -->
+                    <div class="d-flex flex-row justify-content-around">
+                        <button class="btn btn-danger btn-sm">Supprimer</button>
+                        <button class="btn btn-outline-danger btn-sm">Réinitialiser</button>
+                    </div>
+                </div>
+            <% }); %>
+            <div class="card d-flex flex-column align-items-around justify-content-around p-3">
+                <!-- Section Haut : Email et rôle -->
+                <div class="d-flex flex-row justify-content-around p-1">
+                    <p>p.nom@mfgs.fr</p>
+                    <p>Administrateur</p>
+                </div>
+                <!-- Boutons d'action -->
+                <div class="d-flex flex-row justify-content-around">
+                    <button class="btn btn-success btn-sm">Créer</button>
+                    <button class="btn btn-outline-danger btn-sm" disabled>Réinitialiser</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 
