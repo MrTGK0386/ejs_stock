@@ -1,31 +1,13 @@
-<header id="user_header" class="py-3 border-bottom">
-    <div class="container-fluid d-flex align-items-center justify-content-between">
-        <div class="d-flex align-items-center">
-            <a href="/">
-                <img src="style/images/logo.png" alt="Logo" width="70,92" height="59,34">
-            </a>
-        </div>
-
-        <div class="d-flex align-items-center justify-content-end">
-            <div class="d-flex align-items-center justify-content-end me-5">
-                <a class="link-primary link-underline-opacity-0 mx-2" href="/stock">Stock</a>
-                <a class="link-primary link-underline-opacity-0 mx-2" href="/IO">Entrée/Sortie</a>
-            </div>
-        </div>
-        <div class="d-flex align-items-center">
-            <div class="flex-shrink-0 dropdown">
-                <a href="#" class="d-block link-body-emphasis text-decoration-none" data-bs-toggle="dropdown" aria-expanded="false">
-                    <iconify-icon icon="mdi:account" alt="account" class="rounded-circle" width="32" height="32"></iconify-icon>
-                </a>
-                <ul class="dropdown-menu text-small shadow">
-                    <li><a class="dropdown-item" href="/profil">Profil : <%=email %> </a></li>
-                    <% if (admin === 1) {%>
-                        <%- include('adminHeaderComponent')-%>
-                    <% } %>
-                    <hr class="dropdown-divider">
-                    <li><a class="dropdown-item" href="/auth/logout">Se déconnecter</a></li>
-                </ul>
-            </div>
+<header id="header" class="py-1 border-bottom">
+    <div class="container-fluid py-1">
+        <div class="d-flex align-items-center justify-content-between position-relative mb-2">
+            <button class="btn menu-button position-absolute start-0 me-3" onclick="history.back()">
+                <svg xmlns="http://www.w3.org/2000/svg" class="header-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+            </button>
+            <h1 class="title text-center w-100 mb-0"><%= pagetitle%></h1>
         </div>
     </div>
+
 </header>

@@ -30,8 +30,9 @@ router.get('/dashboard', async(req, res) => {
 router.get('/dashboard/admin', async (req, res) => {
     if (req.user) {
         const rows = await User.findAll()
+        const pagetitle = "Administration";
         if (req.user.admin) {
-            res.render('adminpage.ejs', {email: req.user.id, admin: req.user.admin, rows: rows});
+            res.render('adminpage.ejs', {email: req.user.id, admin: req.user.admin, rows: rows, pagetitle: pagetitle});
         }
         else {
             res.redirect('/auth/unauthorized');
