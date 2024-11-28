@@ -18,10 +18,10 @@ router.get('/', (req, res) => {
 router.get('/dashboard', async(req, res) => {
     if (req.user) {
         //Récupération de la table stock_mfgs
-        const rows = await Stock.findAll()
+        //const rows = await Stock.findAll()
         const pagetitle = "Gestionnaire de stock"
         //console.log(rows[1].nom_produit); //Pour atteindre les propriété des produits il suffit de demander la ligne à laquelle il sont puis afficher le paramètre qui nous interesse
-        res.render('index.ejs', {email: req.user.email, admin: req.user.admin, buttonValue: null, rows: rows, pagetitle: pagetitle});
+        res.render('index.ejs', {email: req.user.email, admin: req.user.admin, pagetitle: pagetitle});
     }  else {
         res.redirect('/auth/login');
     }
@@ -33,7 +33,7 @@ router.get('/dashboard/admin', async (req, res) => {
         const rows = await User.findAll()
         const pagetitle = "Administration";
         if (req.user.admin) {
-            res.render('adminpage.ejs', {email: req.user.id, admin: req.user.admin, rows: rows, pagetitle: pagetitle});
+            res.render('adminpage.ejs', {email: req.user.email, admin: req.user.admin, rows: rows, pagetitle: pagetitle});
         }
         else {
             res.redirect('/auth/unauthorized');
@@ -45,8 +45,9 @@ router.get('/dashboard/admin', async (req, res) => {
 
 router.get('/dashboard/stock', async (req, res) => {
     if (req.user) {
+        const rows = await Stock.findAll()
         const pagetitle = "Visualisation des stock";
-        res.render('stock',{pagetitle: pagetitle})
+        res.render('stock',{rows: rows, pagetitle: pagetitle})
     } else {
         res.redirect('/auth/login');
     }
