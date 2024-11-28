@@ -15,6 +15,7 @@ Idee pour scanner les QR et CodeBar :
 - https://medium.com/@ritika.adequate/to-scan-a-qr-code-through-a-web-interface-on-a-mobile-phone-using-the-phones-camera-you-can-8351a86b9a54 <br>
 
 Créer et gérer un tablaeu dynamique avec Express Session : https://chatgpt.com/share/6748307e-a3a4-8010-9afa-3bf49af31ccd <br>
+Ajouter un moteur de recherche : https://github.com/lucaong/minisearch <br>
 Documentation EJS : https://dev.to/victrexx2002/introduction-to-ejs-a-guide-to-building-dynamic-web-applications-2737 <br>
 
 ## <u>Screen interfaces :</u>
