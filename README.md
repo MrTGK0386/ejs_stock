@@ -6,11 +6,16 @@ pour la gestion du stock de la mutualité française
 
 ## <u>Liens utiles :</u>
 
-https://www.youtube.com/watch?v=jBKqA8FFpIM <br>
-https://socket.io/docs/v4/tutorial/api-overview <br>
-https://getbootstrap.com/docs/5.3/getting-started/introduction/ <br>
-https://nodemailer.com/about/ <br>
-https://dev.to/victrexx2002/introduction-to-ejs-a-guide-to-building-dynamic-web-applications-2737 <br>
+Création d'un serveur node avec authentification : https://www.youtube.com/watch?v=jBKqA8FFpIM <br> 
+Documentation socket.io : https://socket.io/docs/v4/tutorial/api-overview <br>
+Docmentation bootstrap : https://getbootstrap.com/docs/5.3/getting-started/introduction/ <br>
+Documentation nodemailer : https://nodemailer.com/about/ <br>
+Idee pour scanner les QR et CodeBar : 
+- https://www.dynamsoft.com/codepool/node-js-barcode-reader-for-desktop-and-web.html<br>
+- https://medium.com/@ritika.adequate/to-scan-a-qr-code-through-a-web-interface-on-a-mobile-phone-using-the-phones-camera-you-can-8351a86b9a54 <br>
+
+Créer et gérer un tablaeu dynamique avec Express Session : https://chatgpt.com/share/6748307e-a3a4-8010-9afa-3bf49af31ccd <br>
+Documentation EJS : https://dev.to/victrexx2002/introduction-to-ejs-a-guide-to-building-dynamic-web-applications-2737 <br>
 
 ## <u>Screen interfaces :</u>
 ![img.png](img.png)
