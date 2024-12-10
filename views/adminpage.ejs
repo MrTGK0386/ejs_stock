@@ -6,9 +6,9 @@
 <%-include('header')%>
 <div class="container-fluid py-3">
     <div class="row gy-3 scrollable-container">
-        <div class="col-12">
+        <div class="col-12 d-md-flex flex-md-row flex-md-wrap justify-content-md-center">
             <!--Carte d'explication-->
-            <div class="card d-flex flex-column justify-content-center align-items-center p-3">
+            <div class="card d-flex flex-column justify-content-center align-items-center p-3 m-1 col-md-6 col-lg-4 col-xl-3">
                 <div class="row w-100">
                     <div class="col-6 d-flex justify-content-center align-items-center">
                         <p class="m-0 fw-bold">Email</p>
@@ -26,8 +26,9 @@
                     </div>
                 </div>
             </div>
-            <% rows.forEach((user) => { %>
-                <div class="card d-flex flex-column align-items-center justify-content-center p-3 my-1">
+            <!--Carte d'explication-->
+        <% rows.forEach((user) => { %>
+                <div class="card d-flex flex-column align-items-center justify-content-center p-3 m-1 col-md-6 col-lg-4 col-xl-3">
                     <!-- Section Haut : Email et rôle -->
                     <div class="row w-100">
                         <div class="col-6 d-flex justify-content-center align-items-center">
@@ -54,7 +55,7 @@
                     </div>
                 </div>
             <% }); %>
-            <div class="card d-flex flex-column justify-content-center align-items-center p-3">
+            <div class="card d-flex flex-column justify-content-center align-items-center p-3 m-1 col-md-6 col-lg-4 col-xl-3">
                 <div class="row w-100">
                     <div class="col-6 d-flex justify-content-center align-items-center">
                         <p class="m-0">p.nom@mfgs.fr</p>
