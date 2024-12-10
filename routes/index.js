@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Stock = require('../models/mfgs_stock');
-const User = require('../models/mfgs_users');
+const Stock = require('../models/').mfgs_stock;
+const User = require('../models').mfgs_users;
 const {where} = require("sequelize");
 
 //

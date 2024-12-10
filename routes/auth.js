@@ -3,7 +3,7 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const User = require('../models/mfgs_users');
+const User = require('../models').mfgs_users;
 const {underscoredIf} = require("sequelize/lib/utils");
 const router = express.Router();
 
