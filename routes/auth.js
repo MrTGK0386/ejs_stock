@@ -81,7 +81,8 @@ router.post('/login', passport.authenticate('local', { //Utilisation du middlewa
 
 router.get('/login', (req, res) => {
     const failed = req.query.failed;
-    res.render('login', {failed: failed});
+    const pagetitle = "Connexion"
+    res.render('login', {failed: failed , pagetitle: pagetitle});
 })
 
 router.post('/signup', async (req, res) => { //Application du formulaire de création utilisateur
@@ -106,11 +107,15 @@ router.get('/signup', (req, res) => {
     const ADMIN_status = req.query.ADMIN_status;
     const email = req.query.email;
 
-    res.render('signup', {failed: failed, email: email, ADMIN_status: ADMIN_status, DSIO_status: DSIO_status, fromMail: fromMail});
+    const pagetitle = "Création de compte"
+
+
+    res.render('signup', {failed: failed, email: email, ADMIN_status: ADMIN_status, DSIO_status: DSIO_status, fromMail: fromMail, pagetitle: pagetitle});
 })
 
 router.post('/accountAsk',  (req, res) => { //Action après le formulaire de demande de compte
     //console.log("requête reçu", req.body);
+
 
     //Transfert des valeur du formulaire dans des variable
     let DSIO_status = req.body.DSIO_status;
@@ -183,7 +188,8 @@ router.post('/accountAsk',  (req, res) => { //Action après le formulaire de dem
 
 router.get('/accountAsk', (req, res) => {
     const failed = req.query.failed;
-    res.render('accountAsk', {failed: failed});
+    const pagetitle = "Demandez un compte"
+    res.render('accountAsk', {failed: failed, pagetitle: pagetitle});
 })
 router.get('/logout', (req, res, next) => {
     req.logout(function(err) {
