@@ -44,5 +44,5 @@ socket.on("addOneResponse", (buttonValue) => {
 });
 
 function deleteUser(userid){
-    redirectByPost('/action/deleteUser?id=' + userid,null,false);
+    redirectByPost('/action/deleteUser', {id: userid},false);
 }
