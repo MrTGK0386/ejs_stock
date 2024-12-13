@@ -19,7 +19,6 @@ function isAdmin(req, res, next) {
 }
 
 
-
 router.post('/deleteUser/:userid', isAuthenticated, isAdmin, async (req, res) => {
     try {
         const userid = req.params.userid;

@@ -1,4 +1,5 @@
 const port = 34090; // port de l'application
+const defaultPagetitle = 'MFGS Stock'; // Titre des pages par défaut
 
 const http = require('http');
 const express = require('express');
@@ -25,8 +26,14 @@ app.use(express.urlencoded({ extended: true })); // Permet de récupérer les ob
 app.use(session({ secret: "SECRETKEY", resave: true, saveUninitialized: true })); // Définis une clé de chiffrement pour les session express (pas top niveau sécu)
 app.use(passport.initialize());
 app.use(passport.session()) //Génère une session Express avec l'authentification de passport
+app.use((req,res,next)=>{
+    res.locals.pagetitle = defaultPagetitle;
+    next();
+})
 
 app.use('/', indexRouter); app.use('/auth', authRouter); app.use('/action', actionRouter); // Indique les routeur à utilisé en fonction de l'URL de la requête
+
+
 
 const server = http.createServer(app);
 const io = new Server(server); //créer un socket pour le serveur
