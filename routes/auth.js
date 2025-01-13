@@ -7,6 +7,20 @@ const User = require('../models').mfgs_users;
 const {underscoredIf} = require("sequelize/lib/utils");
 const router = express.Router();
 
+function isAuthenticated(req, res, next) {
+    if (!req.user) {
+        return res.status(401).render('unauthorized');
+    }
+    next();
+}
+
+function isAdmin(req, res, next) {
+    if (!req.user.admin) {
+        return res.status(403).render('unauthorized');
+    }
+    next();
+}
+
 //--- Création du mailer Nodemailer ---//
 const transporter = nodemailer.createTransport({
     host: 'smtp.office365.com', //smtp de l'entreprise
@@ -99,7 +113,7 @@ router.post('/signup', async (req, res) => { //Application du formulaire de cré
         return res.redirect('/auth/signup?failed=notUnique');
     }
 });
-router.get('/signup', (req, res) => {
+router.get('/signup',isAuthenticated, isAdmin,(req, res) => {
     //Ces variables permettent le remplissage automatique et la vérification d'accés sur la page Signup
     const failed = req.query.failed;
     const fromMail = req.query.fromMail;
@@ -113,10 +127,9 @@ router.get('/signup', (req, res) => {
     res.render('signup', {failed: failed, email: email, ADMIN_status: ADMIN_status, DSIO_status: DSIO_status, fromMail: fromMail, pagetitle: pagetitle});
 })
 
-router.post('/accountAsk',  (req, res) => { //Action après le formulaire de demande de compte
+router.post('/accountAsk',  (req, res) => {
+    //Action après le formulaire de demande de compte
     //console.log("requête reçu", req.body);
-
-
     //Transfert des valeur du formulaire dans des variable
     let DSIO_status = req.body.DSIO_status;
     let ADMIN_status = req.body.ADMIN_status;
@@ -191,7 +204,7 @@ router.get('/accountAsk', (req, res) => {
     const pagetitle = "Demandez un compte"
     res.render('accountAsk', {failed: failed, pagetitle: pagetitle});
 })
-router.get('/logout', (req, res, next) => {
+router.get('/logout', isAuthenticated ,(req, res, next) => {
     req.logout(function(err) {
         if (err) { return next(err)}
         console.log ('Logged out')
