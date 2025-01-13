@@ -14,7 +14,7 @@ const transporter = nodemailer.createTransport({
     secure: false,
     auth: {
         user: 'scan@mfgs.fr', //adresse de l'envoyeur
-        pass: '34Sc@n34!', //mot de passe de l'envoyeur
+        pass: 'Pfe8s3)9@9(DfF' //mot de passe de l'envoyeur
     },
     tls: {
         cipher: 'SSLv3' //stratégie de sécurité
