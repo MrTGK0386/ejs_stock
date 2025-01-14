@@ -1,4 +1,5 @@
 const port = 34090; // port de l'application
+const defaultPagetitle = 'MFGS Stock'; // Titre des pages par défaut
 
 const http = require('http');
 const express = require('express');
@@ -11,6 +12,7 @@ const app = express(); // Instanciation de l'application
 
 const indexRouter = require("./routes/index"); // Paramétrage du routeur par défaut
 const authRouter = require("./routes/auth"); // Paramétrage du routeur d'authentification
+const actionRouter = require("./routes/action"); // Paramétrage du routeur d'action
 
 sequelize.sync().then(()=>{ // Synchronisation à la base de donnée
     console.log("database up !");
@@ -24,8 +26,14 @@ app.use(express.urlencoded({ extended: true })); // Permet de récupérer les ob
 app.use(session({ secret: "SECRETKEY", resave: true, saveUninitialized: true })); // Définis une clé de chiffrement pour les session express (pas top niveau sécu)
 app.use(passport.initialize());
 app.use(passport.session()) //Génère une session Express avec l'authentification de passport
+app.use((req,res,next)=>{
+    res.locals.pagetitle = defaultPagetitle;
+    next();
+})
 
-app.use('/', indexRouter); app.use('/auth', authRouter); // Indique les routeur à utilisé en fonction de l'URL de la requête
+app.use('/', indexRouter); app.use('/auth', authRouter); app.use('/action', actionRouter); // Indique les routeur à utilisé en fonction de l'URL de la requête
+
+
 
 const server = http.createServer(app);
 const io = new Server(server); //créer un socket pour le serveur
@@ -37,6 +45,12 @@ io.on('connection', function(socket) { //gestion des événement suite à une co
     socket.on('addOne', function() {
         buttonValue++;
         io.emit('addOneResponse', buttonValue);
+    })
+    socket.on('deleteUser', function(userid) {
+
+
+
+        io.emit('deleteUser_done');
     })
     socket.on('disconnect', function() { // gère la déconnection
         console.log("A socket was disbanded");

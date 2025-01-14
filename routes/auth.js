@@ -3,9 +3,23 @@ const nodemailer = require('nodemailer');
 const crypto = require('crypto');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
-const User = require('../models/User');
+const User = require('../models').mfgs_users;
 const {underscoredIf} = require("sequelize/lib/utils");
 const router = express.Router();
+
+function isAuthenticated(req, res, next) {
+    if (!req.user) {
+        return res.status(401).render('unauthorized');
+    }
+    next();
+}
+
+function isAdmin(req, res, next) {
+    if (!req.user.admin) {
+        return res.status(403).render('unauthorized');
+    }
+    next();
+}
 
 //--- Création du mailer Nodemailer ---//
 const transporter = nodemailer.createTransport({
@@ -14,7 +28,7 @@ const transporter = nodemailer.createTransport({
     secure: false,
     auth: {
         user: 'scan@mfgs.fr', //adresse de l'envoyeur
-        pass: '34Sc@n34!', //mot de passe de l'envoyeur
+        pass: 'Pfe8s3)9@9(DfF' //mot de passe de l'envoyeur
     },
     tls: {
         cipher: 'SSLv3' //stratégie de sécurité
@@ -81,7 +95,8 @@ router.post('/login', passport.authenticate('local', { //Utilisation du middlewa
 
 router.get('/login', (req, res) => {
     const failed = req.query.failed;
-    res.render('login', {failed: failed});
+    const pagetitle = "Connexion"
+    res.render('login', {failed: failed , pagetitle: pagetitle});
 })
 
 router.post('/signup', async (req, res) => { //Application du formulaire de création utilisateur
@@ -98,7 +113,7 @@ router.post('/signup', async (req, res) => { //Application du formulaire de cré
         return res.redirect('/auth/signup?failed=notUnique');
     }
 });
-router.get('/signup', (req, res) => {
+router.get('/signup',isAuthenticated, isAdmin,(req, res) => {
     //Ces variables permettent le remplissage automatique et la vérification d'accés sur la page Signup
     const failed = req.query.failed;
     const fromMail = req.query.fromMail;
@@ -106,12 +121,29 @@ router.get('/signup', (req, res) => {
     const ADMIN_status = req.query.ADMIN_status;
     const email = req.query.email;
 
-    res.render('signup', {failed: failed, email: email, ADMIN_status: ADMIN_status, DSIO_status: DSIO_status, fromMail: fromMail});
+    const pagetitle = "Création de compte"
+
+
+    res.render('signup', {failed: failed, email: email, ADMIN_status: ADMIN_status, DSIO_status: DSIO_status, fromMail: fromMail, pagetitle: pagetitle});
 })
 
-router.post('/accountAsk',  (req, res) => { //Action après le formulaire de demande de compte
-    //console.log("requête reçu", req.body);
+router.get('/addUser',isAuthenticated, isAdmin,(req, res) => {
+    //Ces variables permettent le remplissage automatique et la vérification d'accés sur la page Signup
+    const failed = req.query.failed;
+    const fromMail = req.query.fromMail;
+    const DSIO_status = req.query.DSIO_status;
+    const ADMIN_status = req.query.ADMIN_status;
+    const email = req.query.email;
 
+    const pagetitle = "Création de compte"
+
+
+    res.render('adduser', {failed: failed, email: email, ADMIN_status: ADMIN_status, DSIO_status: DSIO_status, fromMail: fromMail, pagetitle: pagetitle});
+})
+
+router.post('/accountAsk',  async (req, res) => {
+    //Action après le formulaire de demande de compte
+    //console.log("requête reçu", req.body);
     //Transfert des valeur du formulaire dans des variable
     let DSIO_status = req.body.DSIO_status;
     let ADMIN_status = req.body.ADMIN_status;
@@ -129,13 +161,15 @@ router.post('/accountAsk',  (req, res) => { //Action après le formulaire de dem
     }
 
     //Création de l'URL de redirection en fonction information rentrée par l'utilisateur
-    const url = `http://localhost:34090/auth/signup?email=${encodeURIComponent(email)}&ADMIN_status=${encodeURIComponent(ADMIN_status)}&DSIO_status=${encodeURIComponent(DSIO_status)}&fromMail=true`;
+    const url = `http://192.168.200.101:34090/auth/signup?email=${encodeURIComponent(email)}&ADMIN_status=${encodeURIComponent(ADMIN_status)}&DSIO_status=${encodeURIComponent(DSIO_status)}&fromMail=true`;
 
+    const admins = await User.findAll({ where: { admin: 1 } });
 
+    const adminEmails = admins.map(admin => `${admin.email}`).join(', ');
 
-    var askMail = { //Création d'un email dynamique et remplissage avec les valeurs du formulaire
+    let askMail = { //Création d'un email dynamique et remplissage avec les valeurs du formulaire
         from: "scan@mfgs.fr",
-        to: "et.garcia@mfgs.fr",
+        to: adminEmails,
         subject: "Demande de création de compte | Stock MFGS",
         text: `Pourriez vous créer un compte dans le stock pour ${email} avec le status Admin : ${ADMIN_status} et le status membre de la DSI : ${DSIO_status}`,
         html:  `
@@ -183,9 +217,10 @@ router.post('/accountAsk',  (req, res) => { //Action après le formulaire de dem
 
 router.get('/accountAsk', (req, res) => {
     const failed = req.query.failed;
-    res.render('accountAsk', {failed: failed});
+    const pagetitle = "Demandez un compte"
+    res.render('accountAsk', {failed: failed, pagetitle: pagetitle});
 })
-router.get('/logout', (req, res, next) => {
+router.get('/logout', isAuthenticated ,(req, res, next) => {
     req.logout(function(err) {
         if (err) { return next(err)}
         console.log ('Logged out')
