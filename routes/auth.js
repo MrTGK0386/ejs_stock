@@ -141,7 +141,7 @@ router.get('/addUser',isAuthenticated, isAdmin,(req, res) => {
     res.render('adduser', {failed: failed, email: email, ADMIN_status: ADMIN_status, DSIO_status: DSIO_status, fromMail: fromMail, pagetitle: pagetitle});
 })
 
-router.post('/accountAsk',  (req, res) => {
+router.post('/accountAsk',  async (req, res) => {
     //Action après le formulaire de demande de compte
     //console.log("requête reçu", req.body);
     //Transfert des valeur du formulaire dans des variable
@@ -161,13 +161,15 @@ router.post('/accountAsk',  (req, res) => {
     }
 
     //Création de l'URL de redirection en fonction information rentrée par l'utilisateur
-    const url = `http://localhost:34090/auth/signup?email=${encodeURIComponent(email)}&ADMIN_status=${encodeURIComponent(ADMIN_status)}&DSIO_status=${encodeURIComponent(DSIO_status)}&fromMail=true`;
+    const url = `http://192.168.200.101:34090/auth/signup?email=${encodeURIComponent(email)}&ADMIN_status=${encodeURIComponent(ADMIN_status)}&DSIO_status=${encodeURIComponent(DSIO_status)}&fromMail=true`;
 
+    const admins = await User.findAll({ where: { admin: 1 } });
 
+    const adminEmails = admins.map(admin => `${admin.email}`).join(', ');
 
-    var askMail = { //Création d'un email dynamique et remplissage avec les valeurs du formulaire
+    let askMail = { //Création d'un email dynamique et remplissage avec les valeurs du formulaire
         from: "scan@mfgs.fr",
-        to: "et.garcia@mfgs.fr",
+        to: adminEmails,
         subject: "Demande de création de compte | Stock MFGS",
         text: `Pourriez vous créer un compte dans le stock pour ${email} avec le status Admin : ${ADMIN_status} et le status membre de la DSI : ${DSIO_status}`,
         html:  `

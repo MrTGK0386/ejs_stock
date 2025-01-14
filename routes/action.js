@@ -18,7 +18,6 @@ function isAdmin(req, res, next) {
     next();
 }
 
-
 router.post('/deleteUser/:userid', isAuthenticated, isAdmin, async (req, res) => {
     try {
         const userid = req.params.userid;
@@ -34,7 +33,6 @@ router.post('/deleteUser/:userid', isAuthenticated, isAdmin, async (req, res) =>
         return res.status(500).render('error',{pagetitle:'Erreur 500',error:'500'});
     }
 })
-
 router.post('/updateUser/:userid', isAuthenticated, isAdmin, async (req, res) => {
     try {
 
@@ -43,7 +41,6 @@ router.post('/updateUser/:userid', isAuthenticated, isAdmin, async (req, res) =>
         return res.status(500).render('error',{pagetitle:'Erreur 500',error:'500'});
     }
 })
-
 router.post('/renewPassword/:userid', isAuthenticated, isAdmin, async (req, res) => {
     try {
         const userid = req.params.userid;
@@ -61,5 +58,7 @@ router.post('/renewPassword/:userid', isAuthenticated, isAdmin, async (req, res)
         console.error(`Erreur lors de la réinitialisation du mot de passe`,error);
     }
 })
+
+
 
 module.exports = router;
