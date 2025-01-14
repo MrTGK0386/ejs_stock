@@ -50,7 +50,7 @@
                             <button class="btn btn-danger btn-sm" onclick="deleteUser(<%= user.id_users%>)">Supprimer</button>
                         </div>
                         <div class="col-6 d-flex justify-content-center">
-                            <button class="btn btn-outline-danger btn-sm">Réinitialiser</button>
+                            <button class="btn btn-outline-danger btn-sm"><!--onclick="renewUserPassword(<%= //user.id_users%>)"-->Réinitialiser</button>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                 </div>
                 <div class="row w-100 mt-3">
                     <div class="col-6 d-flex justify-content-center">
-                        <button class="btn btn-success btn-sm">Créer</button>
+                        <button class="btn btn-success btn-sm" onclick="addUser()">Créer</button>
                     </div>
                     <div class="col-6 d-flex justify-content-center">
                         <button class="btn btn-outline-danger btn-sm" disabled>Réinitialiser</button>

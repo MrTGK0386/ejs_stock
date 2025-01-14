@@ -44,6 +44,17 @@ socket.on("addOneResponse", (buttonValue) => {
 });
 
 function deleteUser(userid){
-    console.log(userid);
     redirectByPost('/action/deleteUser/' + userid,null,false);
+}
+
+function renewUserPassword(userid){
+    redirectByPost('/action/renewPassword/' + userid,null,false);
+}
+
+function addUser(){
+    document.location.href = '/auth/signup/';
+}
+
+function updateUser(userid,email,DSIO_Status,ADMIN_Status){
+    redirectByPost('/action/updateUser/' + userid + email + DSIO_Status + ADMIN_Status,null,false,);
 }
