@@ -127,6 +127,20 @@ router.get('/signup',isAuthenticated, isAdmin,(req, res) => {
     res.render('signup', {failed: failed, email: email, ADMIN_status: ADMIN_status, DSIO_status: DSIO_status, fromMail: fromMail, pagetitle: pagetitle});
 })
 
+router.get('/addUser',isAuthenticated, isAdmin,(req, res) => {
+    //Ces variables permettent le remplissage automatique et la vérification d'accés sur la page Signup
+    const failed = req.query.failed;
+    const fromMail = req.query.fromMail;
+    const DSIO_status = req.query.DSIO_status;
+    const ADMIN_status = req.query.ADMIN_status;
+    const email = req.query.email;
+
+    const pagetitle = "Création de compte"
+
+
+    res.render('adduser', {failed: failed, email: email, ADMIN_status: ADMIN_status, DSIO_status: DSIO_status, fromMail: fromMail, pagetitle: pagetitle});
+})
+
 router.post('/accountAsk',  (req, res) => {
     //Action après le formulaire de demande de compte
     //console.log("requête reçu", req.body);

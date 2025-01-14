@@ -52,7 +52,7 @@ function renewUserPassword(userid){
 }
 
 function addUser(){
-    document.location.href = '/auth/signup/';
+    document.location.href = '/auth/adduser/';
 }
 
 function updateUser(userid,email,DSIO_Status,ADMIN_Status){

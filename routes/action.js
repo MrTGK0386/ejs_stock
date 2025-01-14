@@ -35,15 +35,6 @@ router.post('/deleteUser/:userid', isAuthenticated, isAdmin, async (req, res) =>
     }
 })
 
-router.post('/addUser/', isAuthenticated, isAdmin, async (req, res) => {
-    try {
-        document.location.href = '/auth/signup';
-    } catch (error) {
-        console.error(`Page signup inaccessible`,error);
-        return res.status(500).render('error',{pagetitle:'Erreur 500',error:'500'});
-    }
-})
-
 router.post('/updateUser/:userid', isAuthenticated, isAdmin, async (req, res) => {
     try {
 
@@ -55,9 +46,19 @@ router.post('/updateUser/:userid', isAuthenticated, isAdmin, async (req, res) =>
 
 router.post('/renewPassword/:userid', isAuthenticated, isAdmin, async (req, res) => {
     try {
+        const userid = req.params.userid;
+        const userToRenew = await User.findByPk(userid);
+        if (!userToRenew) {
+            return res.status(404).render('404', {pagetitle: 'Erreur 404'});
+        }
+        await userToRenew.setDataValue('password', null);
+        await userToRenew.setDataValue('salt', null);
+        await userToRenew.save();
+
+        return res.status(200).redirect('/dashboard/admin');
 
     } catch (error) {
-        console.error(`Erreur lors de la néinitialisation du mot de passe`,error);
+        console.error(`Erreur lors de la réinitialisation du mot de passe`,error);
     }
 })
 
