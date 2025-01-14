@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<%-include('base')-%>
+
+<body class="d-flex flex-column min-vh-100">
+
+<div class="container-fluid py-4">
+    <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-8 col-lg-6">
+            <div class="card shadow-sm account-creation-card">
+                <div class="card-body p-4">
+                    <form method="post" action="/auth/signup" class="text-center account-creation-form">
+                        <div class="position-relative mb-4">
+                            <img src="../style/images/logo.png"
+                                 class="img-fluid account-creation-logo"
+                                 alt="Logo">
+                        </div>
+
+                        <h1 class="account-creation-title mb-3">Ajouter un utilisateur</h1>
+
+                        <% if (failed) {%>
+                            <p class="account-creation-error mb-3 text-danger">Erreur lors de la création du compte</p>
+                        <% } %>
+
+                        <div class="form-floating mb-4 account-creation-input-group">
+                            <% if (email) {%>
+                                <input type="text"
+                                       class="form-control account-creation-input"
+                                       id="email"
+                                       name="email"
+                                       placeholder="n.prenom@mfgs.fr"
+                                       value="<%= email%>"
+                                       required
+                                       autofocus>
+                            <% } else {%>
+                                <input type="text"
+                                       class="form-control account-creation-input"
+                                       id="email"
+                                       name="email"
+                                       placeholder="n.prenom@mfgs.fr"
+                                       required
+                                       autofocus>
+                            <%}%>
+                            <label for="email">Adresse email</label>
+                        </div>
+
+                        <div class="form-floating mb-4 account-creation-input-group">
+                            <input type="password"
+                                   class="form-control account-creation-input"
+                                   id="password"
+                                   name="password"
+                                   placeholder="Your Password"
+                                   required>
+                            <label for="password">Mot de passe</label>
+                        </div>
+
+                        <div class="form-check mb-4 account-creation-checkbox-group">
+                            <% if (DSIO_status == "Oui") {%>
+                                <input type="checkbox"
+                                       class="form-check-input"
+                                       id="DSIO_status"
+                                       name="DSIO_status"
+                                       checked>
+                            <%} else {%>
+                                <input type="checkbox"
+                                       class="form-check-input"
+                                       id="DSIO_status"
+                                       name="DSIO_status">
+                            <%}%>
+                            <label class="form-check-label" for="DSIO_status">
+                                Membre du service informatique
+                            </label>
+                        </div>
+
+                        <div class="form-check mb-4 account-creation-checkbox-group">
+                            <%if (ADMIN_status == "Oui") {%>
+                                <input type="checkbox"
+                                       class="form-check-input"
+                                       id="ADMIN_status"
+                                       name="ADMIN_status"
+                                       checked>
+                            <%} else {%>
+                                <input type="checkbox"
+                                       class="form-check-input"
+                                       id="ADMIN_status"
+                                       name="ADMIN_status">
+                            <%}%>
+                            <label class="form-check-label" for="ADMIN_status">
+                                Administrateur du système
+                            </label>
+                        </div>
+
+                        <div class="d-grid gap-3 account-creation-buttons">
+                            <button class="btn btn-primary account-creation-button" type="submit">
+                                Créer le compte
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+<%-include('scripts')-%>
+</html>
