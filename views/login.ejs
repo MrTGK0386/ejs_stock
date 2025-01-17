@@ -3,14 +3,17 @@
 <%-include('base')-%>
 
 <body class="d-flex flex-column min-vh-100">
-<%# include('header')-%>
 
 <div class="container-fluid py-4">
     <div class="row justify-content-center align-items-center h-100">
         <div class="col-12 col-md-8 col-lg-6">
             <div class="card shadow-sm login-card">
                 <div class="card-body p-4">
-                    <form method="post" action="/auth/login" class="text-center login-form">
+                    <% if (redirect) { %>
+                    <form method="post" action="/auth/login?redirect=<%=redirect%>" class="text-center login-form">
+                        <% } else { %>
+                        <form method="post" action="/auth/login" class="text-center login-form">
+                            <% } %>
                         <div class="position-relative mb-4">
                             <img src="../style/images/logo.png"
                                  class="login-logo"

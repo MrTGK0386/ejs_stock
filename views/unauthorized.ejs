@@ -1,7 +1,18 @@
 <html>
 <%-include('base')-%>
 <title>Accès Refusé</title>
-<script>setTimeout(()=> {document.location.href = '/';}, 5000);</script>
+<% if (redirect) { %>
+    <script>setTimeout(()=> {
+        const decoder = document.createElement('div');
+        decoder.innerHTML = '<%= redirect %>';
+        const decodedUrl = decoder.textContent
+        const base64Url = btoa(decodedUrl);
+        location.href = '/auth/login?redirect=' + encodeURIComponent(base64Url);
+        }, 2000);</script>
+<% } else { %>
+    <script>setTimeout(()=> {location.href = '/';}, 2000);</script>
+
+<% } %>
 
 <body>
 <div class="container d-flex align-items-center justify-content-center vh-100">

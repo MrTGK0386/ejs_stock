@@ -9,7 +9,8 @@ const router = express.Router();
 
 function isAuthenticated(req, res, next) {
     if (!req.user) {
-        return res.status(401).render('unauthorized');
+        console.info(req.originalUrl);
+        return res.status(401).render('unauthorized',{redirect : req.originalUrl});
     }
     next();
 }
@@ -20,6 +21,17 @@ function isAdmin(req, res, next) {
     }
     next();
 }
+
+const saveRedirectUrl = (req, res, next) => {
+    console.log("Query complet:", req.query);
+    console.log("Redirect reçu:", req.query.redirect);
+    if (req.query.redirect) {
+        const decodedUrl = decodeURIComponent(req.query.redirect);
+        console.log("URL stockée en session:", decodedUrl);
+        req.session.redirectTo = decodedUrl;
+    }
+    next();
+};
 
 //--- Création du mailer Nodemailer ---//
 const transporter = nodemailer.createTransport({
@@ -87,16 +99,31 @@ passport.deserializeUser((id, done) => {
     })
 })
 
-router.post('/login', passport.authenticate('local', { //Utilisation du middleware passport lors de la requête formulaie,redirecton en fonction du résultat
-    successRedirect: '/dashboard',
-    failureRedirect: '/auth/login?failed=1',
-}))
+router.post('/login', (req,res,next) => {
+    let failureUrl = '/auth/login?failed=1';
+    if (req.query.redirect) {
+        failureUrl += `&redirect=${req.query.redirect}`;
+    }
+
+    passport.authenticate('local', { //Utilisation du middleware passport lors de la requête formulaie,redirecton en fonction du résultat
+        failureRedirect: failureUrl,
+    })(req, res, next);
+    },
+    (req,res) => {
+    if (req.query.redirect){
+        const redirectUrl = Buffer.from(req.query.redirect, 'base64').toString();
+        res.redirect(redirectUrl);
+    } else {
+        res.redirect('/dashboard');
+    }
+})
 
 
 router.get('/login', (req, res) => {
     const failed = req.query.failed;
+    const redirect = req.query.redirect;
     const pagetitle = "Connexion"
-    res.render('login', {failed: failed , pagetitle: pagetitle});
+    res.render('login', {failed: failed , pagetitle: pagetitle, redirect: redirect});
 })
 
 router.post('/signup', async (req, res) => { //Application du formulaire de création utilisateur
